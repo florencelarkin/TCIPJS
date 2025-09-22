@@ -125,18 +125,22 @@ var jsPsychTCIPWait = (function (jspsych) {
           //progress bar animation
           function animateProgressBar(duration) {
             let progress = 0;
-            console.log(duration);
             let progressBar = document.querySelector('.progress');
-            const increment = 1 / duration * 1750; // Adjust the increment value for desired smoothness
+            if (!progressBar) {
+              return;
+            }
+            const increment = 1600 / duration;
+            const intervalTime = 16; // ms
       
             const interval = setInterval(() => {
               progress += increment;
               progressBar.style.width = `${progress}%`;
       
               if (progress >= 100) {
+                progressBar.style.width = `100%`;
                 clearInterval(interval);
               }
-            }, duration / 1000); // Adjust the interval duration for desired speed
+            }, intervalTime);
           } 
           animateProgressBar(trial.trial_duration)
 
